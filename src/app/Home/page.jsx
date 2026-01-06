@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 // import logo from "../../Assets/Images/images.jpeg";
 
@@ -19,10 +20,10 @@ const HomePage = () => {
         </div>
         <div>
           <button className="btn btn-primary rounded-md px-5 py-3 text-2xl">
-            Register
+            <Link href="/signup">Register</Link>
           </button>
-          <button className="btn btn-success btn-warning mx-3 rounded-md px-5 py-3 text-2xl">
-            Login
+          <button className="btn btn-warning mx-3 rounded-md px-5 py-3 text-2xl">
+            <Link href="/login">Login</Link>
           </button>
         </div>
       </div>
