@@ -1,11 +1,14 @@
-
+import BookCard from "@/Components/BookCard";
 import React from "react";
 
 const Dashboard = () => {
   return (
     <>
-        This is your dashboard
-      
+      <BookCard
+        title="Create your own business"
+        author="abc"
+        descriptions="This books"
+      />
     </>
   );
 };

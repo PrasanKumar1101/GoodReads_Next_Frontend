@@ -6,8 +6,7 @@ import { logout } from "@/Redux/Slices/authSlice";
 export default function Navbar() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { isLoggedIn } = useSelector((state) => state.auth);
-
+  const { isLoggedIn, username } = useSelector((state) => state.auth);
   function onLogout() {
     dispatch(logout());
     router.push("/Signin");
@@ -28,6 +27,13 @@ export default function Navbar() {
           <li>
             <Link href="/dashboard/shelves">Shelves</Link>
           </li>
+          {isLoggedIn && (
+            <li>
+              <Link href="/Dashboard" className="font-semibold text-success">
+                Hi, {username}
+              </Link>
+            </li>
+          )}
           <li>
             <details>
               <summary>Options</summary>
@@ -46,7 +52,7 @@ export default function Navbar() {
                   <ul>
                     <li>
                       <Link
-                        href="/signin"
+                        href="/Signin"
                         className="text-white bg-red-400 hover:bg-red-500 my-4"
                       >
                         Login
@@ -54,7 +60,7 @@ export default function Navbar() {
                     </li>
                     <li>
                       <Link
-                        href="/signup"
+                        href="/Signup"
                         className="text-white bg-red-400 hover:bg-red-500"
                       >
                         Signup
