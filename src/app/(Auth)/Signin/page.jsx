@@ -32,12 +32,15 @@ const signin = () => {
     console.log(signinDetails);
     try {
       const response = await dispatch(Signin(signinDetails)).unwrap();
-      router.replace("/Home");
+      router.replace("/Dashboard");
     } catch (error) {
       console.log("Signin failed:", error);
     }
     resetForm();
   }
+  // console.log("LS isLoggedIn:", localStorage.getItem("isLoggedIn"));
+  // console.log("LS username:", localStorage.getItem("username"));
+  // console.log("LS token:", localStorage.getItem("token"));
 
   return (
     <div className="h-[100vh] flex flex-col items-center justify-center">

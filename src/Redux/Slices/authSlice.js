@@ -20,37 +20,38 @@ const initialState = {
   token: "",
 };
 
-export const signup = createAsyncThunk("/signup", async (data) => {
-  try {
-    const response = instance.post("signup", data);
-    toast.promise(response, {
-      loading: "Submitting form",
-      sucess: "Sucessfully signed up!",
-      error: "Something went wrong",
-    });
-  } catch (error) {
-    console.log(error);
-    toast.error("Something went wrong");
-  }
-});
-
-export const Signin = createAsyncThunk("/signin", async (data) => {
-  try {
-    const response = instance.post("signin", data);
-    toast.promise(response, {
-      loading: "Submitting form",
-      sucess: "Sucessfully signed in!",
-      error: "Something went wrong",
-    });
-  } catch (error) {
-    console.log(error);
-    if (error?.response?.data?.err) {
-      toast.error(error?.response?.data?.data?.err);
-    } else {
-      toast.error("Something went wrong");
+export const signup = createAsyncThunk(
+  "/signup",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await instance.post("signup", data);
+      toast.success("Successfully signed up");
+      return response.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Signup failed");
+      return rejectWithValue(error.response?.data);
     }
   }
-});
+);
+
+export const Signin = createAsyncThunk(
+  "/signin",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await instance.post("signin", data);
+      toast.success("Successfully signed in");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      if (error?.response?.data?.err) {
+        toast.error(error?.response?.data?.data?.err);
+      } else {
+        toast.error(error?.response?.data?.message || "Signin failed");
+      }
+      return rejectWithValue(error.response?.data);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -63,22 +64,27 @@ const authSlice = createSlice({
         state.token = localStorage.getItem("token") || "";
       }
     },
+    logout: (state) => {
+      state.isLoggedIn = false;
+      state.username = "";
+      state.token = "";
+      localStorage.clear();
+    },
   },
-  extraReducers: (buider) => {
-    buider.addCase(Signin.fulfilled, (state, action) => {
-      if (action?.payload?.data) {
-        state.isLoggedIn = action?.payload?.data?.data != undefined;
-        state.username = action?.payload?.data?.data?.username;
-        state.token = action?.payload?.data?.data?.token;
-        localStorage.setItem(
-          "isLoggedIn",
-          action?.payload?.data?.data != undefined
-        );
-        localStorage.setItem("username", action?.payload?.data?.data?.username);
-        localStorage.setItem("token", action?.payload?.data?.data?.token);
-      }
+  extraReducers: (builder) => {
+    builder.addCase(Signin.fulfilled, (state, action) => {
+      const { token, username } = action.payload.data;
+
+      state.isLoggedIn = true;
+      state.username = username;
+      state.token = token;
+
+      localStorage.setItem("isLoggedIn", "true"); // ✅ string
+      localStorage.setItem("username", username);
+      localStorage.setItem("token", token);
     });
   },
 });
 
 export default authSlice.reducer;
+export const { hydrateAuth, logout } = authSlice.actions;
