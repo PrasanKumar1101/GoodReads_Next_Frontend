@@ -20,10 +20,10 @@ const HomePage = () => {
         </div>
         <div>
           <button className="btn btn-primary rounded-md px-5 py-3 text-2xl">
-            <Link href="/signup">Register</Link>
+            <Link href="/Signup">Register</Link>
           </button>
           <button className="btn btn-warning mx-3 rounded-md px-5 py-3 text-2xl">
-            <Link href="/login">Login</Link>
+            <Link href="/Signin">Signin</Link>
           </button>
         </div>
       </div>
