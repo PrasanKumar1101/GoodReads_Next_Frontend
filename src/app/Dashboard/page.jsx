@@ -21,14 +21,7 @@ const Dashboard = () => {
     <>
       {bookState.bookList.length > 0 &&
         bookState.bookList.map((book) => {
-          return (
-            <BookCard
-              key={book._id}
-              title={book.title}
-              descriptions={book.description}
-              author={book.author?.name}
-            />
-          );
+          return <BookCard key={book._id} data={book} />;
         })}
     </>
   );

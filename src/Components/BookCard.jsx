@@ -1,6 +1,9 @@
+"use client";
+import { useRouter } from "next/navigation";
 import { BiUser } from "react-icons/bi";
 
-export default function BookCard({ title, author,descriptions }) {
+export default function BookCard({ data }) {
+  const router = useRouter();
   return (
     <div className="card card-side bg-white w-11/12 max-w-4xl shadow-lg hover:shadow-xl transition-shadow mt-10">
       {/* Book Image */}
@@ -15,11 +18,11 @@ export default function BookCard({ title, author,descriptions }) {
       {/* Content */}
       <div className="card-body text-black flex flex-col justify-between">
         {/* Title */}
-        <h2 className="card-title text-xl font-bold">{title}</h2>
+        <h2 className="card-title text-xl font-bold">{data.title}</h2>
 
         {/* Description */}
         <p className="text-sm text-gray-600 line-clamp-2">
-          {descriptions}
+          {data.descriptions}
         </p>
 
         {/* Bottom Row */}
@@ -27,11 +30,18 @@ export default function BookCard({ title, author,descriptions }) {
           {/* Author */}
           <div className="flex items-center gap-2 text-sm text-gray-700">
             <BiUser className="text-lg" />
-            <span>{author}</span>
+            <span>{data.author?.name}</span>
           </div>
 
           {/* Action */}
-          <button className="btn btn-sm btn-primary">More Details</button>
+          <button
+            onClick={() => {
+              router.push(`/Dashboard/book/${data._id}`);
+            }}
+            className="btn btn-sm btn-primary"
+          >
+            More Details
+          </button>
         </div>
       </div>
     </div>

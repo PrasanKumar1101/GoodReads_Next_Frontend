@@ -23,7 +23,7 @@ export default function Navbar() {
     <div className="navbar bg-neutral text-neutral-content w-full px-200">
       {/* Left */}
       <div className="flex-1">
-        <Link href="/dashboard" className="btn btn-success btn-ghost text-xl">
+        <Link href="/Dashboard" className="btn btn-success btn-ghost text-xl">
           BookShelf
         </Link>
       </div>
