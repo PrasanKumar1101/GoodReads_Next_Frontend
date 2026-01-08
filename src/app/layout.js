@@ -1,15 +1,16 @@
-"use client";
-import { Provider } from "react-redux";
 import "./globals.css";
-import Store from "@/Redux/Store";
+import StoreProvider from "./StoreProvider";
+import Providers from "./provider";
 import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Provider store={Store}>{children}</Provider>
-        <Toaster position="top-center" reverseOrder={false} />
+        <StoreProvider>
+          <Providers>{children}</Providers>
+        </StoreProvider>
+        <Toaster position="top-center" />
       </body>
     </html>
   );

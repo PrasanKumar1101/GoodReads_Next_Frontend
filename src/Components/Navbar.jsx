@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/Redux/Slices/authSlice";
+import { useEffect } from "react";
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -11,6 +12,12 @@ export default function Navbar() {
     dispatch(logout());
     router.push("/Signin");
   }
+  // useEffect(() => {
+  //   const user = JSON.parse(localStorage.getItem("user"));
+  //   if (user) {
+  //     dispatch(login(user));
+  //   }
+  // }, []);
 
   return (
     <div className="navbar bg-neutral text-neutral-content w-full px-200">
