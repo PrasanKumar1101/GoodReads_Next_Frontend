@@ -1,6 +1,9 @@
+// "use client";
+// import { useSelector } from "react-redux";
+import ShelvesList from "@/Components/ShelvesList";
 export default async function BookDescription({ params }) {
   const { id } = await params;
-
+  // const shelfState = useSelector((state) => state.shelf);
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/books/${id}`,
     { cache: "no-store" }
@@ -77,9 +80,25 @@ export default async function BookDescription({ params }) {
             {/* Action Buttons */}
             <div className="flex gap-4 mt-6">
               <button className="btn btn-primary">Add to Library</button>
-              <button className="btn btn-outline text-white border-white">
-                Read More
-              </button>
+              <div className="dropdown">
+                <div tabIndex={0} role="button" className="btn m-1">
+                  Add to Shelf
+                </div>
+                <ul
+                  tabIndex="-1"
+                  className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                >
+                  {/* {shelfState.shelfList.length > 0 &&
+                    shelfState.shelfList.map((shelf) => {
+                      return (
+                        <li key={shelf._id}>
+                          <a>{shelf.name}</a>
+                        </li>
+                      );
+                    })} */}
+                  <ShelvesList bookId={book.data._id} />
+                </ul>
+              </div>
             </div>
           </div>
         </div>

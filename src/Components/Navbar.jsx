@@ -32,7 +32,7 @@ export default function Navbar() {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link href="/dashboard/shelves">Shelves</Link>
+            <Link href="/Dashboard/shelf">Shelf</Link>
           </li>
           {isLoggedIn && (
             <li>
@@ -43,7 +43,7 @@ export default function Navbar() {
           )}
           <li>
             <details>
-              <summary>Options</summary>
+              < summary>Options</summary>
               <ul className="p-2 bg-base-100 text-black rounded-box">
                 {isLoggedIn ? (
                   <li>

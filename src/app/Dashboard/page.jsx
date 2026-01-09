@@ -1,12 +1,14 @@
 "use client";
 import BookCard from "@/Components/BookCard";
 import { getAllBooks } from "@/Redux/Slices/bookSlice";
+import { getAllBookShelves } from "@/Redux/Slices/shelfSlice";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Dashboard = () => {
   const bookState = useSelector((state) => state.book);
   const dispatch = useDispatch();
+
   async function loadBooks() {
     if (bookState.bookList.length == 0) {
       const response = await dispatch(getAllBooks());
@@ -15,6 +17,7 @@ const Dashboard = () => {
   }
   useEffect(() => {
     loadBooks();
+    dispatch(getAllBookShelves());
   }, []);
 
   return (

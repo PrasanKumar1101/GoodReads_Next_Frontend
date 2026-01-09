@@ -16,7 +16,7 @@ export const getAllBooks = createAsyncThunk(
 
       toast.success("Successfully loaded all the books");
 
-      return response.data;
+      return response.data.data;
     } catch (error) {
       toast.error("Something went wrong, cannot get books");
       return rejectWithValue(error.response?.data);
@@ -30,9 +30,7 @@ const bookSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAllBooks.fulfilled, (state, action) => {
-      if (action?.payload?.data) {
-        state.bookList = action?.payload?.data;
-      }
+      state.bookList = action.payload || [];
     });
   },
 });
